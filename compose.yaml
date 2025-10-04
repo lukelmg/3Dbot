@@ -6,5 +6,8 @@ services:
       - DISCORD_TOKEN=${DISCORD_TOKEN}
     volumes:
       - ./output:/app/output
+      - ./render_gif.py:/app/render_gif.py:ro
+      - ./bot.py:/app/bot.py:ro
+      - ./convert.py:/app/convert.py:ro
     env_file:
       - .env

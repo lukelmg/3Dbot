@@ -23,7 +23,7 @@ client = discord.Client(intents=intents)
 @client.event
 async def on_ready():
     logging.info(f"Bot ready - logged in as {client.user}")
-    logging.info("Watching for .stl, .step, .stp, .iges, .igs files...")
+    logging.info("Watching for .stl, .step, .stp")
 
 
 @client.event
@@ -37,7 +37,7 @@ async def on_message(message: discord.Message):
         name = a.filename.lower()
         logging.info(f"Received file: {name}")
 
-        if not name.endswith((".stl", ".step", ".stp", ".iges", ".igs")):
+        if not name.endswith((".stl", ".step", ".stp")):
             continue
 
         tmpdir = tempfile.mkdtemp(prefix="job_", dir="/app/output")
@@ -50,9 +50,9 @@ async def on_message(message: discord.Message):
             logging.info(f"Converting {name} to STL...")
             subprocess.run(["python3", "/app/convert.py", in_path, stl_path], check=True)
 
-        png_path = os.path.join(tmpdir, os.path.splitext(os.path.basename(stl_path))[0] + ".png")
+        png_path = os.path.join(tmpdir, os.path.splitext(os.path.basename(stl_path))[0] + ".gif")
         logging.info("Rendering 3D preview...")
-        subprocess.run(["python3", "/app/nump.py", stl_path, png_path], check=True)
+        subprocess.run(["python3", "/app/render_gif.py", stl_path, png_path], check=True)
 
         logging.info("Sending preview...")
         await message.channel.send(file=discord.File(png_path), reference=message)

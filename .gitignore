@@ -1,2 +1,7 @@
 .env
 output/
+venv/
+output/
+output*/
+output*
+output*.*
