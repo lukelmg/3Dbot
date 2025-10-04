@@ -47,7 +47,7 @@ renderer = pyrender.OffscreenRenderer(viewport_width=512, viewport_height=512)
 frames = []
 elev = np.pi / 12.0
 
-num_frames = 48
+num_frames = 24
 
 for i in range(num_frames):
     angle = 2 * np.pi * i / num_frames
@@ -95,4 +95,4 @@ for i in range(num_frames):
     frames.append(color[:, :, :3])
 
 renderer.delete()
-imageio.mimsave(outp, frames, fps=16, loop=0)
+imageio.mimsave(outp, frames, fps=8, loop=0)
