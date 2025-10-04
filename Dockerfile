@@ -13,6 +13,6 @@ WORKDIR /app
 COPY . /app
 
 RUN pip3 install --no-cache-dir discord.py numpy numpy-stl matplotlib python-dotenv
-RUN mkdir -p /app/output
+RUN mkdir -p /app/output && chmod 777 /app/output
 
 CMD ["python3","/app/bot.py"]
